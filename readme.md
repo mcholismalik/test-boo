@@ -7,13 +7,12 @@ This is a Node.js application built using the Express framework, following the S
 ## Table of Contents
 
 - [Project Structure](#project-structure)
-- [Testing](#testing)
-- [Swagger Documentation](#swagger-documentation)
-- [Database](#database)
+- [Driver](#database)
+- [Documentation](#documentation)
 - [Endpoints](#endpoints)
 - [Static Pages](#static-pages)
-- [How to Run](#how-to-run)
-- [How to Test](#how-to-test)
+- [Testing](#testing)
+- [How to](#how-to)
 
 ---
 
@@ -33,13 +32,6 @@ The project structure follows the SOLID principles and Clean Architecture, which
 - **Database**: Use MongoDB database, use library `mongodb-memory-server`.
 - **Logging**: Use library `winston`.
 
-## Testing
-
-The application includes comprehensive testing using `jest` and `chai`:
-
-- **Functional Test**: Tests the repository functions.
-- **Unit Test**: Tests the usecase functions.
-- **Integration Test**: Tests the HTTP handlers.
 
 ## Documentation
 
@@ -62,17 +54,24 @@ Static pages are available for profile details:
 
 - `/profile/{id}`: Displays the profile with the specific ID.
 
-## How to Run
+## Testing
 
-To run the application, execute the following command:
+The application includes comprehensive testing using `jest` and `chai`:
+
+- **Functional Test**: Tests the repository functions.
+- **Unit Test**: Tests the usecase functions.
+- **Integration Test**: Tests the HTTP handlers.
+
+## How to
+
+- **Run**: To run the application, execute the following command:
 
 ```bash
 npm run start
 ```
 
-## How to Test
-
-To test the application, execute the following command:
+- **Test**: To test the application, execute the following command:
 
 ```bash
 npm run test
+```
