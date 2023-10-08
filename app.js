@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const swaggerUi = require('swagger-ui-express');
+const { v4: uuidv4 } = require('uuid'); 
 
 const WinstonLogger = require('./src/driver/winstonLogger');
 const MongoDb = require('./src/driver/mongoDb');
@@ -17,6 +18,7 @@ const ProfileApiHandler = require('./src/handler/profileApi');
 const CommentApiHandler = require('./src/handler/commentApi');
 const CommentRepository = require('./src/repository/comment');
 const CommentUsecase = require('./src/usecase/comment');
+const PrometheusMetric = require('./src/driver/prometheusMetric');
 
 // init server
 const app = express();
@@ -24,6 +26,7 @@ const port = process.env.PORT || 3000;
 
 // dependencies
 const logger = new WinstonLogger();
+const metric = new PrometheusMetric();
 const db = new MongoDb();
 (async () => {
     try {
@@ -54,18 +57,26 @@ const commentApiHandler = new CommentApiHandler(logger, commentUsecase);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); 
 
-// handlers
+// middlewares
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+	const requestId = uuidv4();
+	req.headers['x-request-id'] = requestId;
+	res.setHeader('x-request-id', requestId);
+	next();
+});
+
+// handlers
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(SwaggerDoc));
+app.use('/metrics', metric.serve);
 app.use(profileHandler.router);
 app.use(profileApiHandler.router);
 app.use(commentApiHandler.router);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(SwaggerDoc));
 app.use('/', (req, res) => {
 	res.json({
 		title: 'Welcome to Boo!',
 	})
 });
-
 
 // start server
 process.on('SIGINT', async () => {

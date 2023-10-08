@@ -25,12 +25,13 @@ The project structure follows the SOLID principles and Clean Architecture, which
   - DTOs (Data Transfer Objects): For transferring data between layers.
   - Validation: Handling data validation and schemas.
 - **Repository**: Responsible for data access and database interactions.
-- **Use Case**: Contains business logic and use case-specific operations.
+- **Usecase**: Contains business logic and use case-specific operations.
 - **Handler**: Handles HTTP requests and responses, bridging the API with the use cases.
 
 ## Driver
-- **Database**: Use MongoDB database, use library `mongodb-memory-server`.
-- **Logging**: Use library `winston`.
+- **Database**: Use MongoDB database, with library `mongodb-memory-server`.
+- **Logging**: Use Console, with library `winston`.
+- **Metric**: Use Prometheus, with library `prom-client`.
 
 
 ## Documentation
