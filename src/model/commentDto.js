@@ -41,8 +41,8 @@ const CreateCommentBodyDto = {
   properties: {
     profileId: {
       type: 'string',
-    example: mock.profileId,
-    minLength: 1,
+      example: mock.profileId,
+      minLength: 1,
     },
     title: {
       type: 'string',
