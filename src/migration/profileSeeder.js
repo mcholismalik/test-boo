@@ -8,7 +8,7 @@ class ProfileSeeder {
     this.profileDomain = profileDomain;
   }
 
-  async init() {
+  async execute() {
     const profiles = [];
     const numProfiles = 5;
 

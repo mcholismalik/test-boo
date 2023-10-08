@@ -19,39 +19,26 @@ const CommentApiHandler = require('./src/handler/commentApi');
 const CommentRepository = require('./src/repository/comment');
 const CommentUsecase = require('./src/usecase/comment');
 const PrometheusMetric = require('./src/driver/prometheusMetric');
-
-// init server
-const app = express();
-const port = process.env.PORT || 3000;
+const EnvConfig = require('./src/driver/envConfig');
 
 // dependencies
 const logger = new WinstonLogger();
-const metric = new PrometheusMetric();
+const config = new EnvConfig(logger);
+const metric = new PrometheusMetric(logger);
+const swaggerDoc = new SwaggerDoc(config);
 const db = new MongoDb();
-(async () => {
-  try {
-    await db.init();
-    logger.info('Database successfully connected');
-  } catch (err) {
-    logger.error(err);
-  }
-})();
 const profileRepository = new ProfileRepository();
 const commentRepository = new CommentRepository();
 const profileSeeder = new ProfileSeeder(profileRepository);
-(async () => {
-  try {
-    await profileSeeder.init();
-    logger.info('Seeder successfully running');
-  } catch (err) {
-    logger.error(err);
-  }
-})();
 const profileUsecase = new ProfileUsecase(profileRepository);
 const commentUsecase = new CommentUsecase(commentRepository);
 const profileHandler = new ProfileHandler(logger, profileUsecase);
 const profileApiHandler = new ProfileApiHandler(logger, profileUsecase);
 const commentApiHandler = new CommentApiHandler(logger, commentUsecase);
+
+// init server
+const app = express();
+const port = process.env.PORT || config.port;
 
 // views
 app.set('view engine', 'ejs');
@@ -67,7 +54,7 @@ app.use((req, res, next) => {
 });
 
 // handlers
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(SwaggerDoc));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc.getSpec()));
 app.use('/metrics', metric.serve);
 app.use(profileHandler.router);
 app.use(profileApiHandler.router);
@@ -89,6 +76,20 @@ process.on('SIGINT', async () => {
     process.exit(1);
   }
 });
-http.createServer(app).listen(port, () => {
+http.createServer(app).listen(port, async () => {
   logger.info(`Server started on port ${port}`);
+
+  try {
+    await db.init();
+    logger.info('Database successfully connected');
+  } catch (err) {
+    logger.error(err);
+  }
+
+  try {
+    await profileSeeder.execute();
+    logger.info('Seeder successfully executed');
+  } catch (err) {
+    logger.error(err);
+  }
 });

@@ -1,0 +1,5 @@
+service: 'boo'
+version: '1.0.0'
+description: 'Technical Test at Boo World, by Muhammad Cholis Malik.'
+port: 3000
+baseurl: 'http://localhost'

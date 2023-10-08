@@ -3,8 +3,11 @@
 const client = require('prom-client');
 
 class PrometheusMetric {
-  constructor() {
+  constructor(logger) {
+    this.logger = logger;
+    
     client.collectDefaultMetrics();
+    this.logger.info('Metric successfully init');
   }
 
   async serve(req, res, next) {

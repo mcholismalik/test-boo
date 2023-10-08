@@ -17,48 +17,56 @@ const {
   ProfilesRespDto,
 } = require('../model/profileDto');
 
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Boo World',
-      version: '1.0.0',
-      description: 'Technical Test at Boo World, by Muhammad Cholis Malik.',
-    },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-      },
-    ],
-    components: {
-      schemas: {
-        ResponseDto,
+class SwaggerDoc {
+  constructor(config) {
+    this.options = {
+      definition: {
+        openapi: '3.0.0',
+        info: {
+          title: config?.service || '',
+          version: config?.version || '',
+          description: config?.description || '',
+        },
+        servers: [
+          {
+            url: config?.baseurl+':'+config?.port || '',
+          },
+        ],
+        components: {
+          schemas: {
+            ResponseDto,
 
-        GetCommentQueryDto,
-        CreateCommentBodyDto,
-        LikeCommentBodyDto,
-        UnlikeCommentBodyDto,
-        CommentRespDto,
-        CommentsRespDto,
+            GetCommentQueryDto,
+            CreateCommentBodyDto,
+            LikeCommentBodyDto,
+            UnlikeCommentBodyDto,
+            CommentRespDto,
+            CommentsRespDto,
 
-        GetProfileByIDParamDto,
-        CreateProfileBodyDto,
-        ProfileRespDto,
-        ProfilesRespDto,
-      },
-      parameters: {
-        GetCommentQueryDto: {
-          in: 'query',
-          schema: {
-            $ref: '#/components/schemas/GetCommentQueryDto',
+            GetProfileByIDParamDto,
+            CreateProfileBodyDto,
+            ProfileRespDto,
+            ProfilesRespDto,
+          },
+          parameters: {
+            GetCommentQueryDto: {
+              in: 'query',
+              schema: {
+                $ref: '#/components/schemas/GetCommentQueryDto',
+              },
+            },
           },
         },
       },
-    },
-  },
-  apis: ['./src/handler/*.js'],
-};
+      apis: ['./src/handler/*.js'],
+    };
 
-const swaggerSpec = swaggerJsdoc(options);
+    this.swaggerSpec = swaggerJsdoc(this.options);
+  }
 
-module.exports = swaggerSpec;
+  getSpec() {
+    return this.swaggerSpec;
+  }
+}
+
+module.exports = SwaggerDoc;
