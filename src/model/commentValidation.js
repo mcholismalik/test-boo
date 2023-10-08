@@ -1,23 +1,29 @@
 'use strict';
 
 const GetCommentQueryValidation = {
-  mbti: {
+  profileId: {
     in: ['query'],
     isString: true,
     optional: true,
-    errorMessage: 'MBTI should be a string.',
+    errorMessage: 'Profile ID should be a string.',
+  },
+  mbti: {
+    in: ['query'],
+    isBoolean: true,
+    optional: true,
+    errorMessage: 'MBTI should be a boolean.',
   },
   enneagram: {
     in: ['query'],
-    isString: true,
+    isBoolean: true,
     optional: true,
-    errorMessage: 'Enneagram should be a string.',
+    errorMessage: 'Enneagram should be a boolean.',
   },
   zodiac: {
     in: ['query'],
-    isString: true,
+    isBoolean: true,
     optional: true,
-    errorMessage: 'Zodiac should be a string.',
+    errorMessage: 'Zodiac should be a boolean.',
   },
   sort: {
     in: ['query'],

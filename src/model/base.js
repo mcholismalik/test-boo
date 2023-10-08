@@ -9,7 +9,7 @@ const PROFILE_DATA_MOCK = {
 	name: 'Malik',
 	description: 'Senior Software Engineer',
 	mbti: 'ENTJ',
-	enneagram: 'Type 5',
+	enneagram: '1w2',
 	variant: 'Self-Preservation',
 	tritype: 135,
 	socionics: 'ILI (INTp)',
@@ -21,7 +21,7 @@ const PROFILE_DATA_MOCK_2 = {
 	name: 'Asha',
 	description: 'Swim Coach',
 	mbti: 'ESTP',
-	enneagram: 'Type 5',
+	enneagram: '1w2',
 	variant: 'Self-Preservation',
 	tritype: 135,
 	socionics: 'ILI (INTp)',
@@ -34,8 +34,8 @@ const COMMENT_DATA_MOCK = {
 	title: 'Sample Comment',
 	description: 'This is a sample comment',
 	mbti: 'ENTJ',
-	enneagram: 'Type 5',
-	zodiac: 'Aries',
+	enneagram: '1w2',
+	zodiac: 'Virgo',
 	likes: [],
 };
 

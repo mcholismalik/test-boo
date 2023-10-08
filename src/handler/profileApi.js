@@ -16,6 +16,7 @@ class ProfileApiHandler {
 
   init() {
     this.router.post('/api/profile', checkSchema(CreateProfileBodyValidation), this.validate, this.create.bind(this));
+    this.router.get('/api/profile', this.get.bind(this));
   }
 
   validate(req, res, next) {
@@ -72,6 +73,49 @@ class ProfileApiHandler {
     } catch (err) {
       this.logger.error(err);
       ResponseUtil.internalServerError(res, 'Failed create profile', err);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/profile:
+   *   get:
+   *     summary: Get a list of profiles.
+   *     tags: [Profile]
+   *     responses:
+   *       '200':
+   *         description: Success.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 $ref: '#/components/schemas/ProfileRespDto'
+   *       '400':
+   *         description: Bad request.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ResponseDto'
+   *       '500':
+   *         description: Internal server error.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ResponseDto'
+   */
+  async get(req, res, next) {
+    try {
+      const profiles = await this.profileUsecase.get();
+      
+      if (!profiles) {
+        return ResponseUtil.notFound(res, 'No profiles found');
+      }
+
+      ResponseUtil.ok(res, 'Success get profiles', profiles);
+    } catch (err) {
+      this.logger.error(err);
+      ResponseUtil.internalServerError(res, 'Failed to retrieve profiles', err);
     }
   }
 }

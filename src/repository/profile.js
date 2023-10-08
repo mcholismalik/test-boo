@@ -24,6 +24,11 @@ class ProfileRepository {
     const retrievedProfile = await ProfileModel.findById(objectId);
     return retrievedProfile ? retrievedProfile.toObject() : null;
   }
+
+  async get() {
+    const ProfileModel = mongoose.model('Profile', ProfileEntity);
+    return await ProfileModel.find().lean();
+  }
 }
 
 module.exports = ProfileRepository;

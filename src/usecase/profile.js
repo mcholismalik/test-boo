@@ -12,6 +12,10 @@ class ProfileUsecase {
   async getById(id) {
     return await this.profileRepository.getById(id);
   }
+
+  async get() {
+    return await this.profileRepository.get();
+  }
 }
   
 module.exports = ProfileUsecase;

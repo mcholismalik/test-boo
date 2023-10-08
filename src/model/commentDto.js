@@ -1,22 +1,29 @@
 'use strict';
 
-const { BuildResponseDto } = require('./base');
+const { BuildResponseDto, COMMENT_DATA_MOCK: mock } = require('./base');
 
 const GetCommentQueryDto = {
   type: 'object',
   properties: {
-    mbti: {
+    profileId: {
       type: 'string',
+    },
+    mbti: {
+      type: 'boolean',
+      example: false,
     },
     enneagram: {
-      type: 'string',
+      type: 'boolean',
+      example: false,
     },
     zodiac: {
-      type: 'string',
+      type: 'boolean',
+      example: false,
     },
     sort: {
       type: 'string',
       enum: ['recent', 'best'],
+      example: 'best'
     },
   },
 };
@@ -26,23 +33,29 @@ const CreateCommentBodyDto = {
   properties: {
     profileId: {
       type: 'string',
+      example: mock.profileId,
       minLength: 1,
     },
     title: {
       type: 'string',
+      example: mock.title,
       minLength: 1,
     },
     description: {
       type: 'string',
+      example: mock.description,
     },
     mbti: {
       type: 'string',
+      example: mock.mbti,
     },
     enneagram: {
       type: 'string',
+      example: mock.enneagram,
     },
     zodiac: {
       type: 'string',
+      example: mock.zodiac,
     },
   },
   required: ['profileId', 'title'],

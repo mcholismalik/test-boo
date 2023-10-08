@@ -14,7 +14,9 @@ const {
 } = require('../model/commentDto');
 const { 
   GetProfileByIDParamDto,
-  CreateProfileBodyDto
+  CreateProfileBodyDto,
+  ProfileRespDto,
+  ProfilesRespDto
 } = require('../model/profileDto');
 
 const options = {
@@ -33,14 +35,18 @@ const options = {
     components: {
       schemas: {
         ResponseDto,
+        
         GetCommentQueryDto,
         CreateCommentBodyDto,
         LikeCommentBodyDto,
         UnlikeCommentBodyDto, 
+        CommentRespDto,
+        CommentsRespDto,
+
         GetProfileByIDParamDto,
         CreateProfileBodyDto,
-        CommentRespDto,
-        CommentsRespDto
+        ProfileRespDto,
+        ProfilesRespDto,
       },
       parameters: {
         GetCommentQueryDto: {

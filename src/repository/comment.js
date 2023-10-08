@@ -39,7 +39,10 @@ class CommentRepository {
     const CommentModel = mongoose.model('Comment', CommentEntity);
   
 		// filter
-    const query = {};  
+    const query = {}; 
+    if (filterOptions.profileId) {
+      query.profileId = new mongoose.Types.ObjectId(filterOptions.profileId);;
+    }
     if (filterOptions.mbti) {
       query.mbti = { $ne: null, $exists: true };
     }

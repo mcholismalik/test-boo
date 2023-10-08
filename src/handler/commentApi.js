@@ -70,6 +70,7 @@ class CommentApiHandler {
   async get(req, res, next) {
     try {
       const filterOptions = {
+        profileId: req.query.profileId || null,
         mbti: req.query.mbti || null,
         enneagram: req.query.enneagram || null,
         zodiac: req.query.zodiac || null,
