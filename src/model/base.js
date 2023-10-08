@@ -37,6 +37,7 @@ const COMMENT_DATA_MOCK = {
 	enneagram: '1w2',
 	zodiac: 'Virgo',
 	likes: [],
+  createdBy: 'your_profile_id'
 };
 
 const baseMeta = {

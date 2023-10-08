@@ -47,6 +47,7 @@ afterAll(async () => {
 describe('Comment API Handler', () => {
 	it('should create a new comment', async () => {
 		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.createdBy = createdProfileData2._id;
     const response = await request(app)
       .post('/api/comment')
       .send(mockCommentData)
@@ -70,6 +71,7 @@ describe('Comment API Handler', () => {
 
   it('should not create a new comment, error repository', async () => {
 		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.createdBy = createdProfileData2._id;
 
     const errorMock = new Error('Internal server error');
     jest.spyOn(commentUsecase, 'create').mockRejectedValue(errorMock);

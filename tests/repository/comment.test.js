@@ -33,6 +33,7 @@ describe('Comment Repository', () => {
   it('should create a new comment', async () => {    
     const commentRepository = new CommentRepository();
 		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.createdBy = createdProfileData2._id;
     const createdComment = await commentRepository.create(mockCommentData);
 
     expect(createdComment._id).toBeDefined();
@@ -87,6 +88,7 @@ describe('Comment Repository', () => {
   it('should like a comment', async () => {
     const repository = new CommentRepository();
 		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.createdBy = createdProfileData2._id;
     const createdComment = await repository.create(mockCommentData);
     const commentId = createdComment._id.toString();
 
@@ -110,6 +112,7 @@ describe('Comment Repository', () => {
   it('should unlike a comment', async () => {
     const repository = new CommentRepository();
 		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.createdBy = createdProfileData2._id;
     const createdComment = await repository.create(mockCommentData);
     const commentId = createdComment._id.toString();
 

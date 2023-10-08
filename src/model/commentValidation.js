@@ -61,7 +61,7 @@ const CreateCommentBodyValidation = {
 		isLength: {
 			options: { min: 24, max: 24 },
 		},
-    errorMessage: 'Profile ID is required and should be id format.',
+    errorMessage: 'Profile ID is required and should be ID format.',
   },
   title: {
     in: ['body'],
@@ -92,6 +92,16 @@ const CreateCommentBodyValidation = {
     isString: true,
     optional: true,
     errorMessage: 'Zodiac should be a string.',
+  },
+  createdBy: {
+    in: ['body'],
+    isString: true,
+    isHexadecimal: true,
+    notEmpty: true,
+		isLength: {
+			options: { min: 24, max: 24 },
+		},
+    errorMessage: 'Created By is required and should be ID format.',
   },
 };
 

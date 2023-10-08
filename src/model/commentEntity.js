@@ -39,6 +39,12 @@ const CommentEntity = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
+	// For now, we pass this as part of the request body. When we implement authentication soon, we will intercept it based on the token body.
+	createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'Profile',
+    required: true,
+  },
 });
 
 module.exports = { 

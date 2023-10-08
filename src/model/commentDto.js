@@ -65,6 +65,11 @@ const CreateCommentBodyDto = {
       type: 'string',
       example: mock.zodiac,
     },
+    createdBy: {
+      type: 'string',
+      example: mock.profileId,
+      minLength: 1,
+    },
   },
   required: ['profileId', 'title'],
 };
@@ -118,6 +123,12 @@ const baseComment = {
 		zodiac: {
 			type: 'string',
 		},
+    createdAt: {
+      type: 'string'
+    },
+    createdBy: {
+			type: 'string',
+		}
 	}
 };
 
