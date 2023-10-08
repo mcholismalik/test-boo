@@ -9,6 +9,7 @@ class WinstonLogger {
       format: format.combine(
         format.json(),
         format.timestamp(),
+        format.colorize(),
         format.printf(({ timestamp, level, message }) => {
           return `${timestamp} ${level}: ${message}`;
         }),
