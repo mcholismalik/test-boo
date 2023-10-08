@@ -42,4 +42,13 @@ describe('Profile Repository', () => {
     const { _id, __v, createdAt, ...retrievedProfileObject } = retrievedProfile;
     expect(retrievedProfileObject).toEqual(mockProfileData);
   });
+
+  it('should retrieve profiles', async () => {
+    const repository = new ProfileRepository();
+    await repository.create(mockProfileData);
+    const retrievedProfiles = await repository.get();
+
+		expect(retrievedProfiles).toBeDefined();
+		expect(retrievedProfiles.length).toBeGreaterThan(0);
+  });
 });

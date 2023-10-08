@@ -15,7 +15,7 @@ class ProfileRepository {
   async creates(profiles) {
     const ProfileModel = mongoose.model('Profile', ProfileEntity);
     const createdProfiles = await ProfileModel.insertMany(profiles);
-    return createdProfiles.map((profile) => profile.toObject());s
+    return createdProfiles.map((profile) => profile.toObject());
   }
 
   async getById(id) {
