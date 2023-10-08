@@ -28,10 +28,13 @@ describe('Comment Usecase', () => {
     const usecase = new CommentUsecase(mockCommentRepository);
     const filterOptions = { postId: 'mock-post-id' };
     const sortOption = { createdAt: 'desc' };
+    const page = 1;
+    const limit = 10;
     
-    const retrievedComments = await usecase.get(filterOptions, sortOption);
     
-    expect(mockCommentRepository.get).toHaveBeenCalledWith(filterOptions, sortOption);
+    const retrievedComments = await usecase.get(filterOptions, sortOption, page, limit);
+    
+    expect(mockCommentRepository.get).toHaveBeenCalledWith(filterOptions, sortOption, page, limit);
     expect(retrievedComments).toEqual([mockCommentData]);
   });
 
