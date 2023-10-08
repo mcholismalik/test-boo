@@ -27,9 +27,10 @@ The project structure follows the SOLID principles and Clean Architecture, which
 - **Handler**: Handles HTTP requests and responses, bridging the API with the use cases.
 
 ## Driver
-- **Database**: Use MongoDB database, with library `mongodb-memory-server`.
-- **Logging**: Use Console, with library `winston`.
-- **Metric**: Use Prometheus, with library `prom-client`.
+- **Database**: Use MongoDB, library `mongodb-memory-server`.
+- **Cache**: Use Redis, library `ioredis-mock`.
+- **Logging**: Use Console, library `winston`.
+- **Metric**: Use Prometheus, library `prom-client`.
 
 ## Documentation
 
