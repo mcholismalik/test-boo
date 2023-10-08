@@ -57,15 +57,49 @@ describe('Comment API Handler', () => {
     expect(dataObject.profileId).toEqual(mockCommentData.profileId.toString());
   });
 
-	it('should retrieve comments with filter and sort options', async () => {
-    const filterOptions = { mbti: 'ENTJ', };
+  it('should not create a new comment, error validation', async () => {
+		mockCommentData.profileId = 'mock';
+    const response = await request(app)
+      .post('/api/comment')
+      .send(mockCommentData)
+      .expect(400);
+		
+		const createdCommendDataFailed = response.body.data;
+    expect(createdCommendDataFailed.errors.length).toBeGreaterThan(0);
+  });
+
+  it('should not create a new comment, error repository', async () => {
+		mockCommentData.profileId = createdProfileData._id;
+
+    const errorMock = new Error('Internal server error');
+    jest.spyOn(commentUsecase, 'create').mockRejectedValue(errorMock);
+
+    await request(app)
+      .post('/api/comment')
+      .send(mockCommentData)
+      .expect(500);
+	});
+
+	it('should retrieve comments with param', async () => {
+    const filterOptions = { profileId: '', mbti: 'true' };
     const sortOption = COMMENT_SORT_BY_BEST;
+    const page = 1;
+    const limit = 10;
 
     const response = await request(app)
-      .get(`/api/comment?mbti=${filterOptions.mbti}&sort=${sortOption}`)
+      .get(`/api/comment?mbti=${filterOptions.mbti}&sort=${sortOption}&page=${page}&limit=${limit}`)
       .expect(200);
 
 		expect(response.body.data.length).toEqual(1);
+  });
+
+  it('should not retrieve comments, error repository', async () => {
+    const errorMock = new Error('Internal server error');
+    jest.spyOn(commentUsecase, 'get').mockRejectedValue(errorMock);
+
+    await request(app)
+      .get('/api/comment')
+      .expect(500);
   });
 
   it('should like a comment', async () => {
@@ -80,6 +114,18 @@ describe('Comment API Handler', () => {
 		expect(likes.length).toEqual(1);
   });
 
+  it('should not like a comment, error repository', async () => {
+    const data = { commentId: createdCommendData._id, profileId: createdProfileData2._id };
+
+    const errorMock = new Error('Internal server error');
+    jest.spyOn(commentUsecase, 'like').mockRejectedValue(errorMock);
+
+    await request(app)
+      .patch('/api/comment/like')
+      .send(data)
+      .expect(500);
+  });
+
   it('should unlike a comment', async () => {
     const data = { commentId: createdCommendData._id, profileId: createdProfileData2._id };
 
@@ -90,5 +136,17 @@ describe('Comment API Handler', () => {
 
 		const { likes } = response.body.data;
 		expect(likes.length).toEqual(0);
+  });
+
+  it('should not unlike a comment, error repository', async () => {
+    const data = { commentId: createdCommendData._id, profileId: createdProfileData2._id };
+
+    const errorMock = new Error('Internal server error');
+    jest.spyOn(commentUsecase, 'unlike').mockRejectedValue(errorMock);
+
+    await request(app)
+      .patch('/api/comment/unlike')
+      .send(data)
+      .expect(500);
   });
 });

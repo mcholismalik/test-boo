@@ -51,6 +51,14 @@ describe('Profile Repository', () => {
     expect(retrievedProfileObject).toEqual(mockProfileData);
   });
 
+  it('should not retrieve a profile by ID', async () => {
+    const repository = new ProfileRepository();
+    const mockId = '6522bc057abe8f908409ed2f';
+    const retrievedProfile = await repository.getById(mockId);
+
+		expect(retrievedProfile).toBeNull();
+	});
+
   it('should retrieve profiles', async () => {
     const repository = new ProfileRepository();
     await repository.create(mockProfileData);

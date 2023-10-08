@@ -46,4 +46,26 @@ describe('Profile API Handler', () => {
     const {_id, __v, createdAt, ...dataObject } = response.body.data;
     expect(dataObject).toEqual(mockProfileData);
   });
+
+  it('should not create a new profile, error validation', async () => {
+    const mockProfileDataClone = mockProfileData;
+    mockProfileDataClone.name = '';
+    const response = await request(app)
+      .post('/api/profile')
+      .send(mockProfileDataClone)
+      .expect(400);
+
+    const dataObject = response.body.data;
+    expect(dataObject.errors.length).toBeGreaterThan(0);
+  });
+
+  it('should get some profiles', async () => {
+    const response = await request(app)
+      .get('/api/profile')
+      .send()
+      .expect(200);
+
+    const dataObject = response.body.data;
+    expect(dataObject.length).toBeGreaterThan(0);
+  });
 });

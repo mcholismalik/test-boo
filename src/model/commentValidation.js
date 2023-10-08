@@ -56,8 +56,12 @@ const CreateCommentBodyValidation = {
   profileId: {
     in: ['body'],
     isString: true,
+    isHexadecimal: true,
     notEmpty: true,
-    errorMessage: 'Profile ID is required and should be a string.',
+		isLength: {
+			options: { min: 24, max: 24 },
+		},
+    errorMessage: 'Profile ID is required and should be id format.',
   },
   title: {
     in: ['body'],
