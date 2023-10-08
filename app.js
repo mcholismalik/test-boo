@@ -78,7 +78,6 @@ process.on('SIGINT', async () => {
 		process.exit(1);
 	}
 });
-  
 http.createServer(app).listen(port, () => {
     logger.info(`Server started on port ${port}`);
 });
