@@ -30,12 +30,12 @@ The project structure follows the SOLID principles and Clean Architecture, which
 - **Handler**: Handles HTTP requests and responses, bridging the API with the use cases.
 
 ## Driver
-- **Database**: Use MongoDB database, use library `{mongodb-memory-server}`.
-- **Logging**: Use library `{winston}`.
+- **Database**: Use MongoDB database, use library `mongodb-memory-server`.
+- **Logging**: Use library `winston`.
 
 ## Testing
 
-The application includes comprehensive testing using Jest and Chai:
+The application includes comprehensive testing using `jest` and `chai`:
 
 - **Functional Test**: Tests the repository functions.
 - **Unit Test**: Tests the usecase functions.
@@ -43,7 +43,7 @@ The application includes comprehensive testing using Jest and Chai:
 
 ## Documentation
 
-The API documentation is available using Swagger at the route `/docs`.
+The API documentation is available using `swagger` at the route `/docs`.
 
 
 ## Endpoints
