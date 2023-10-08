@@ -25,6 +25,22 @@ const GetCommentQueryValidation = {
     optional: true,
     errorMessage: 'Zodiac should be a boolean.',
   },
+  page: {
+    in: ['query'],
+    isInt: {
+      options: { min: 1 },
+      errorMessage: 'Page should be a positive integer.',
+    },
+    optional: true,
+  },
+  limit: {
+    in: ['query'],
+    isInt: {
+      options: { min: 1 },
+      errorMessage: 'Limit should be a positive integer.',
+    },
+    optional: true,
+  },
   sort: {
     in: ['query'],
     isString: true,

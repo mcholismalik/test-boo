@@ -76,8 +76,10 @@ class CommentApiHandler {
         zodiac: req.query.zodiac || null,
       };
       const sortOption = req.query.sort || COMMENT_SORT_BY_RECENT;
+      const page = req.query.page || null;
+      const limit = req.query.limit || null;
 
-      const comments = await this.commentUsecase.get(filterOptions, sortOption);
+      const comments = await this.commentUsecase.get(filterOptions, sortOption, page, limit);
 
       ResponseUtil.ok(res, 'Success get comments', comments);
     } catch (err) {

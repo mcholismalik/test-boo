@@ -17,8 +17,8 @@ class CommentUsecase {
     return await this.commentRepository.unlike(commentId, profileId);
   }
 
-  async get(filterOptions, sortOption) {
-    return await this.commentRepository.get(filterOptions, sortOption);
+  async get(filterOptions, sortOption, page, limit) {
+    return await this.commentRepository.get(filterOptions, sortOption, page, limit);
   }  
 }
 

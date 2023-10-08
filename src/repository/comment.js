@@ -35,28 +35,35 @@ class CommentRepository {
     return updatedComment ? updatedComment.toObject() : null;
   }
 
-  async get(filterOptions, sortOption) {
+  async get(filterOptions, sortOption, page = 1, limit = 10) {
     const CommentModel = mongoose.model('Comment', CommentEntity);
   
-		// filter
-    const query = {}; 
+    // filter
+    const query = {};
     if (filterOptions.profileId) {
-      query.profileId = new mongoose.Types.ObjectId(filterOptions.profileId);;
+      query.profileId = new mongoose.Types.ObjectId(filterOptions.profileId);
     }
-    if (filterOptions.mbti) {
-      query.mbti = { $ne: null, $exists: true };
+  
+    const filterFields = ['mbti', 'enneagram', 'zodiac'];
+    query.$and = filterFields
+      .filter(field => filterOptions[field] === "true")
+      .map(field => ({ [field]: { $ne: null, $ne: '' } }));
+  
+    if (query.$and.length === 0) {
+      delete query.$and;
     }
-    if (filterOptions.enneagram) {
-      query.enneagram = { $ne: null, $exists: true };
-    }
-    if (filterOptions.zodiac) {
-      query.zodiac = { $ne: null, $exists: true };
-    }
-    
-		// sort
+  
+    // sort
     const sort = sortOption === COMMENT_SORT_BY_BEST ? { likes: -1, createdAt: -1 } : { createdAt: -1 };
   
-    const comments = await CommentModel.find(query).sort(sort).lean();
+    const skip = (page - 1) * limit;
+  
+    const comments = await CommentModel.find(query)
+      .sort(sort)
+      .skip(skip)
+      .limit(limit)
+      .lean();
+  
     return comments;
   }
 }

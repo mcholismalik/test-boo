@@ -20,6 +20,14 @@ const GetCommentQueryDto = {
       type: 'boolean',
       example: false,
     },
+    page: {
+      type: 'integer',
+      example: 1,
+    },
+    limit: {
+      type: 'integer',
+      example: 10,
+    },
     sort: {
       type: 'string',
       enum: ['recent', 'best'],
