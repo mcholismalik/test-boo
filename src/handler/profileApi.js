@@ -22,7 +22,6 @@ class ProfileApiHandler {
   validate(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors)
       return ResponseUtil.badRequest(res, 'Failed create profile', errors);
     }
     next();
