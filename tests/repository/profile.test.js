@@ -32,6 +32,14 @@ describe('Profile Repository', () => {
 		expect(createdProfileObject).toEqual(mockProfileData);
   });
 
+  it('should creates some profile', async () => {
+    const repository = new ProfileRepository();
+    const createdProfiles = await repository.creates([mockProfileData]);
+    
+    expect(createdProfiles).toBeDefined();
+		expect(createdProfiles.length).toBeGreaterThan(0);
+  });
+
   it('should retrieve a profile by ID', async () => {
     const repository = new ProfileRepository();
     const createdProfile = await repository.create(mockProfileData);
