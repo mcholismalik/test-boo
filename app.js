@@ -66,6 +66,21 @@ app.use('/', (req, res) => {
 });
 
 // start server
+(async () => {
+  try {
+    await db.init();
+    logger.info('Database successfully connected');
+  } catch (err) {
+    logger.error(err);
+  }
+  
+  try {
+    await profileSeeder.execute();
+    logger.info('Seeder successfully executed');
+  } catch (err) {
+    logger.error(err);
+  }
+})
 process.on('SIGINT', async () => {
   try {
     await db.close();
@@ -78,18 +93,4 @@ process.on('SIGINT', async () => {
 });
 http.createServer(app).listen(port, async () => {
   logger.info(`Server started on port ${port}`);
-
-  try {
-    await db.init();
-    logger.info('Database successfully connected');
-  } catch (err) {
-    logger.error(err);
-  }
-
-  try {
-    await profileSeeder.execute();
-    logger.info('Seeder successfully executed');
-  } catch (err) {
-    logger.error(err);
-  }
 });

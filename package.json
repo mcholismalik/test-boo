@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node app.js",
     "test": "npx jest --verbose",
-    "format": "prettier --write \"**/*.js\""
+    "format": "prettier --write \"**/*.js\"",
+    "check-coverage": "npx jest --coverage --ci",
+    "pre-commit": "npm run check-coverage && npm run format",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "Muhammad Cholis Malik",
@@ -36,7 +39,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run pre-commit"
     }
   }
 }

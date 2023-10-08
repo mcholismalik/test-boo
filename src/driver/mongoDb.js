@@ -24,8 +24,10 @@ class MongoDb {
   }
 
   async close() {
-    await mongoose.disconnect();
-    await this.instance.stop();
+    if (this.instance) {
+      await mongoose.disconnect();
+      await this.instance.stop();
+    }
   }
 }
 
