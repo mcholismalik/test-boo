@@ -10,7 +10,6 @@ This is a Node.js application built using the Express framework, following the S
 - [Testing](#testing)
 - [Swagger Documentation](#swagger-documentation)
 - [Database](#database)
-- [Logger](#logger)
 - [Endpoints](#endpoints)
 - [Static Pages](#static-pages)
 - [How to Run](#how-to-run)
@@ -26,34 +25,26 @@ The project structure follows the SOLID principles and Clean Architecture, which
   - Entities: Representing the data structure.
   - DTOs (Data Transfer Objects): For transferring data between layers.
   - Validation: Handling data validation and schemas.
-
 - **Repository**: Responsible for data access and database interactions.
-
 - **Use Case**: Contains business logic and use case-specific operations.
-
 - **Handler**: Handles HTTP requests and responses, bridging the API with the use cases.
+
+## Driver
+- **Database**: Use MongoDB database, use library `{mongodb-memory-server}`.
+- **Logging**: Use library `{winston}`.
 
 ## Testing
 
 The application includes comprehensive testing using Jest and Chai:
 
 - **Functional Test**: Tests the repository functions.
-
-- **Unit Test**: Tests the use case functions.
-
+- **Unit Test**: Tests the usecase functions.
 - **Integration Test**: Tests the HTTP handlers.
 
-## Swagger Documentation
+## Documentation
 
 The API documentation is available using Swagger at the route `/docs`.
 
-## Database
-
-The application uses `mongodb-memory-server` for an in-memory MongoDB database with a seeder for test data.
-
-## Logger
-
-Logging is implemented using Winston for robust error and event tracking.
 
 ## Endpoints
 
@@ -77,3 +68,11 @@ To run the application, execute the following command:
 
 ```bash
 npm run start
+```
+
+## How to Test
+
+To test the application, execute the following command:
+
+```bash
+npm run test
