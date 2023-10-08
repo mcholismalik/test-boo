@@ -1,8 +1,6 @@
 # test-boo
 
-**Note: This application was created for a technical test at Boo.**
-
-This is a Node.js application built using the Express framework, following the SOLID principles and Clean Architecture. It includes various components such as models, repositories, use cases, handlers, tests, swagger documentation.
+Technical test at boo, rest + static page, built using the Express framework, following the SOLID principles and Clean Architecture. It includes various components such as models, repositories, use cases, handlers, tests, swagger documentation.
 
 ## Table of Contents
 
@@ -32,7 +30,6 @@ The project structure follows the SOLID principles and Clean Architecture, which
 - **Database**: Use MongoDB database, with library `mongodb-memory-server`.
 - **Logging**: Use Console, with library `winston`.
 - **Metric**: Use Prometheus, with library `prom-client`.
-
 
 ## Documentation
 
