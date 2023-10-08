@@ -3,11 +3,14 @@
 // Functional Testing: Profile Repository
 
 const MongoDb = require('../../src/driver/mongoDb');
+const RedisCache = require('../../src/driver/redisCache');
 const { PROFILE_DATA_MOCK } = require('../../src/model/base');
 const ProfileRepository = require('../../src/repository/profile');
 
 // dependencies
 const db = new MongoDb();
+const cache = new RedisCache();
+const repository = new ProfileRepository(cache);
 
 // mock
 const mockProfileData = PROFILE_DATA_MOCK;
@@ -23,7 +26,6 @@ afterAll(async () => {
 
 describe('Profile Repository', () => {
   it('should create a new profile', async () => {
-    const repository = new ProfileRepository();
     const createdProfile = await repository.create(mockProfileData);
 
     expect(createdProfile._id).toBeDefined();
@@ -33,7 +35,6 @@ describe('Profile Repository', () => {
   });
 
   it('should creates some profile', async () => {
-    const repository = new ProfileRepository();
     const createdProfiles = await repository.creates([mockProfileData]);
 
     expect(createdProfiles).toBeDefined();
@@ -41,18 +42,19 @@ describe('Profile Repository', () => {
   });
 
   it('should retrieve a profile by ID', async () => {
-    const repository = new ProfileRepository();
     const createdProfile = await repository.create(mockProfileData);
     const retrievedProfile = await repository.getById(createdProfile._id);
+    const retrievedProfileCached = await repository.getById(createdProfile._id);
 
     expect(retrievedProfile).toBeDefined();
+    expect(retrievedProfileCached).toBeDefined();
+    expect(retrievedProfile.name).toEqual(retrievedProfileCached.name);
 
     const { _id, __v, createdAt, ...retrievedProfileObject } = retrievedProfile;
     expect(retrievedProfileObject).toEqual(mockProfileData);
   });
 
   it('should not retrieve a profile by ID', async () => {
-    const repository = new ProfileRepository();
     const mockId = '6522bc057abe8f908409ed2f';
     const retrievedProfile = await repository.getById(mockId);
 
@@ -60,7 +62,6 @@ describe('Profile Repository', () => {
   });
 
   it('should retrieve profiles', async () => {
-    const repository = new ProfileRepository();
     await repository.create(mockProfileData);
     const retrievedProfiles = await repository.get();
 

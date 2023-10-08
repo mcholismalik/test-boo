@@ -15,6 +15,7 @@ const {
 
 // dependencies
 const db = new MongoDb();
+const repository = new CommentRepository();
 
 // mock
 const mockProfileData = PROFILE_DATA_MOCK;
@@ -37,10 +38,9 @@ afterAll(async () => {
 
 describe('Comment Repository', () => {
   it('should create a new comment', async () => {
-    const commentRepository = new CommentRepository();
     mockCommentData.profileId = createdProfileData._id;
     mockCommentData.createdBy = createdProfileData2._id;
-    const createdComment = await commentRepository.create(mockCommentData);
+    const createdComment = await repository.create(mockCommentData);
 
     expect(createdComment._id).toBeDefined();
 
@@ -49,8 +49,6 @@ describe('Comment Repository', () => {
   });
 
   it('should retrieve comments with sort by best', async () => {
-    const repository = new CommentRepository();
-
     const filterOptions = {
       profileId: mockCommentData.profileId,
       mbti: 'true',
@@ -69,8 +67,6 @@ describe('Comment Repository', () => {
   });
 
   it('should retrieve comments with sort by recent', async () => {
-    const repository = new CommentRepository();
-
     const filterOptions = {
       profileId: mockCommentData.profileId,
       mbti: 'true',
@@ -89,8 +85,6 @@ describe('Comment Repository', () => {
   });
 
   it('should retrieve comments without page, limit', async () => {
-    const repository = new CommentRepository();
-
     const filterOptions = {
       profileId: mockCommentData.profileId,
       mbti: 'true',
@@ -102,7 +96,6 @@ describe('Comment Repository', () => {
   });
 
   it('should like a comment', async () => {
-    const repository = new CommentRepository();
     mockCommentData.profileId = createdProfileData._id;
     mockCommentData.createdBy = createdProfileData2._id;
     const createdComment = await repository.create(mockCommentData);
@@ -116,8 +109,6 @@ describe('Comment Repository', () => {
   });
 
   it('should not like a comment', async () => {
-    const repository = new CommentRepository();
-
     const mockCommentId = '6522bc057abe8f908409ed2f';
     const profileId = createdProfileData2._id;
     const updatedComment = await repository.like(mockCommentId, profileId);
@@ -126,7 +117,6 @@ describe('Comment Repository', () => {
   });
 
   it('should unlike a comment', async () => {
-    const repository = new CommentRepository();
     mockCommentData.profileId = createdProfileData._id;
     mockCommentData.createdBy = createdProfileData2._id;
     const createdComment = await repository.create(mockCommentData);
@@ -140,8 +130,6 @@ describe('Comment Repository', () => {
   });
 
   it('should not unlike a comment', async () => {
-    const repository = new CommentRepository();
-
     const mockCommentId = '6522bc057abe8f908409ed2f';
     const profileId = createdProfileData2._id;
     const updatedComment = await repository.unlike(mockCommentId, profileId);

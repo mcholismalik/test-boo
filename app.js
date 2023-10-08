@@ -20,6 +20,7 @@ const CommentRepository = require('./src/repository/comment');
 const CommentUsecase = require('./src/usecase/comment');
 const PrometheusMetric = require('./src/driver/prometheusMetric');
 const EnvConfig = require('./src/driver/envConfig');
+const RedisCache = require('./src/driver/redisCache');
 
 // dependencies
 const logger = new WinstonLogger();
@@ -27,7 +28,8 @@ const config = new EnvConfig(logger);
 const metric = new PrometheusMetric(logger);
 const swaggerDoc = new SwaggerDoc(config);
 const db = new MongoDb();
-const profileRepository = new ProfileRepository();
+const cache = new RedisCache();
+const profileRepository = new ProfileRepository(cache);
 const commentRepository = new CommentRepository();
 const profileSeeder = new ProfileSeeder(profileRepository);
 const profileUsecase = new ProfileUsecase(profileRepository);
@@ -80,7 +82,7 @@ app.use('/', (req, res) => {
   } catch (err) {
     logger.error(err);
   }
-})
+})();
 process.on('SIGINT', async () => {
   try {
     await db.close();

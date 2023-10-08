@@ -4,7 +4,11 @@ const mongoose = require('mongoose');
 const { ProfileEntity } = require('../model/profileEntity');
 
 class ProfileRepository {
-  constructor() {}
+  constructor(cache) {
+    this.cache = cache;
+    this.cacheKey = 'profile:';
+    this.cacheExpInSec = 10;
+  }
 
   async create(profile) {
     const ProfileModel = mongoose.model('Profile', ProfileEntity);
@@ -19,10 +23,21 @@ class ProfileRepository {
   }
 
   async getById(id) {
+    const cachedProfile = await this.cache.get(this.cacheKey+id);
+    if (cachedProfile) {
+      return JSON.parse(cachedProfile);
+    }
+
     const ProfileModel = mongoose.model('Profile', ProfileEntity);
     const objectId = new mongoose.Types.ObjectId(id);
     const retrievedProfile = await ProfileModel.findById(objectId);
-    return retrievedProfile ? retrievedProfile.toObject() : null;
+
+    if (retrievedProfile) {
+      await this.cache.set(this.cacheKey+id, JSON.stringify(retrievedProfile.toObject()), this.cacheExpInSec);
+      return retrievedProfile.toObject();
+    }
+
+    return null;
   }
 
   async get() {
