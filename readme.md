@@ -1,6 +1,6 @@
 # test-boo
 
-Technical test at boo, rest + static page, built using the Express framework, following the SOLID principles and Clean Architecture. It includes various components such as models, repositories, use cases, handlers, tests, swagger documentation.
+Technical test at boo, rest + static page, built using the Express framework, following the SOLID principles and Clean Architecture. It includes various components such as models, repositories, usecases, handlers, tests, swagger documentation.
 
 ## Table of Contents
 
