@@ -14,7 +14,7 @@ const mockCommentRepository = {
   unlike: jest.fn().mockResolvedValue(mockCommentData),
 };
 
-// Runner
+// runner
 describe('Comment Usecase', () => {	
   it('should create a new comment', async () => {
     const usecase = new CommentUsecase(mockCommentRepository);
