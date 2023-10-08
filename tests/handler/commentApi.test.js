@@ -6,7 +6,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('supertest');
 const CommentApiHandler = require('../../src/handler/commentApi');
-const { COMMENT_DATA_MOCK, PROFILE_DATA_MOCK, PROFILE_DATA_MOCK_2, COMMENT_SORT_BY_BEST } = require('../../src/model/base');
+const {
+  COMMENT_DATA_MOCK,
+  PROFILE_DATA_MOCK,
+  PROFILE_DATA_MOCK_2,
+  COMMENT_SORT_BY_BEST,
+} = require('../../src/model/base');
 const WinstonLogger = require('../../src/driver/winstonLogger');
 const CommentRepository = require('../../src/repository/comment');
 const CommentUsecase = require('../../src/usecase/comment');
@@ -35,9 +40,9 @@ let createdCommendData;
 beforeAll(async () => {
   await db.init();
 
-	const profileRepository = new ProfileRepository();
-	createdProfileData = await profileRepository.create(mockProfileData);
-	createdProfileData2 = await profileRepository.create(mockProfileData2);
+  const profileRepository = new ProfileRepository();
+  createdProfileData = await profileRepository.create(mockProfileData);
+  createdProfileData2 = await profileRepository.create(mockProfileData2);
 });
 
 afterAll(async () => {
@@ -45,110 +50,113 @@ afterAll(async () => {
 });
 
 describe('Comment API Handler', () => {
-	it('should create a new comment', async () => {
-		mockCommentData.profileId = createdProfileData._id;
+  it('should create a new comment', async () => {
+    mockCommentData.profileId = createdProfileData._id;
     mockCommentData.createdBy = createdProfileData2._id;
     const response = await request(app)
       .post('/api/comment')
       .send(mockCommentData)
       .expect(201);
-		
-		createdCommendData = response.body.data;
+
+    createdCommendData = response.body.data;
     const { _id, __v, createdAt, ...dataObject } = createdCommendData;
     expect(dataObject.profileId).toEqual(mockCommentData.profileId.toString());
   });
 
   it('should not create a new comment, error validation', async () => {
-		mockCommentData.profileId = 'mock';
+    mockCommentData.profileId = 'mock';
     const response = await request(app)
       .post('/api/comment')
       .send(mockCommentData)
       .expect(400);
-		
-		const createdCommendDataFailed = response.body.data;
+
+    const createdCommendDataFailed = response.body.data;
     expect(createdCommendDataFailed.errors.length).toBeGreaterThan(0);
   });
 
   it('should not create a new comment, error repository', async () => {
-		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.profileId = createdProfileData._id;
     mockCommentData.createdBy = createdProfileData2._id;
 
     const errorMock = new Error('Internal server error');
     jest.spyOn(commentUsecase, 'create').mockRejectedValue(errorMock);
 
-    await request(app)
-      .post('/api/comment')
-      .send(mockCommentData)
-      .expect(500);
-	});
+    await request(app).post('/api/comment').send(mockCommentData).expect(500);
+  });
 
-	it('should retrieve comments with param', async () => {
+  it('should retrieve comments with param', async () => {
     const filterOptions = { profileId: '', mbti: 'true' };
     const sortOption = COMMENT_SORT_BY_BEST;
     const page = 1;
     const limit = 10;
 
     const response = await request(app)
-      .get(`/api/comment?mbti=${filterOptions.mbti}&sort=${sortOption}&page=${page}&limit=${limit}`)
+      .get(
+        `/api/comment?mbti=${filterOptions.mbti}&sort=${sortOption}&page=${page}&limit=${limit}`,
+      )
       .expect(200);
 
-		expect(response.body.data.length).toEqual(1);
+    expect(response.body.data.length).toEqual(1);
   });
 
   it('should not retrieve comments, error repository', async () => {
     const errorMock = new Error('Internal server error');
     jest.spyOn(commentUsecase, 'get').mockRejectedValue(errorMock);
 
-    await request(app)
-      .get('/api/comment')
-      .expect(500);
+    await request(app).get('/api/comment').expect(500);
   });
 
   it('should like a comment', async () => {
-    const data = { commentId: createdCommendData._id, profileId: createdProfileData2._id };
+    const data = {
+      commentId: createdCommendData._id,
+      profileId: createdProfileData2._id,
+    };
 
     const response = await request(app)
       .patch('/api/comment/like')
       .send(data)
       .expect(200);
-		
-		const { likes } = response.body.data;
-		expect(likes.length).toEqual(1);
+
+    const { likes } = response.body.data;
+    expect(likes.length).toEqual(1);
   });
 
   it('should not like a comment, error repository', async () => {
-    const data = { commentId: createdCommendData._id, profileId: createdProfileData2._id };
+    const data = {
+      commentId: createdCommendData._id,
+      profileId: createdProfileData2._id,
+    };
 
     const errorMock = new Error('Internal server error');
     jest.spyOn(commentUsecase, 'like').mockRejectedValue(errorMock);
 
-    await request(app)
-      .patch('/api/comment/like')
-      .send(data)
-      .expect(500);
+    await request(app).patch('/api/comment/like').send(data).expect(500);
   });
 
   it('should unlike a comment', async () => {
-    const data = { commentId: createdCommendData._id, profileId: createdProfileData2._id };
+    const data = {
+      commentId: createdCommendData._id,
+      profileId: createdProfileData2._id,
+    };
 
     const response = await request(app)
       .patch('/api/comment/unlike')
       .send(data)
       .expect(200);
 
-		const { likes } = response.body.data;
-		expect(likes.length).toEqual(0);
+    const { likes } = response.body.data;
+    expect(likes.length).toEqual(0);
   });
 
   it('should not unlike a comment, error repository', async () => {
-    const data = { commentId: createdCommendData._id, profileId: createdProfileData2._id };
+    const data = {
+      commentId: createdCommendData._id,
+      profileId: createdProfileData2._id,
+    };
 
     const errorMock = new Error('Internal server error');
     jest.spyOn(commentUsecase, 'unlike').mockRejectedValue(errorMock);
 
-    await request(app)
-      .patch('/api/comment/unlike')
-      .send(data)
-      .expect(500);
+    await request(app).patch('/api/comment/unlike').send(data).expect(500);
   });
 });

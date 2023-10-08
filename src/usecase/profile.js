@@ -17,5 +17,5 @@ class ProfileUsecase {
     return await this.profileRepository.get();
   }
 }
-  
+
 module.exports = ProfileUsecase;

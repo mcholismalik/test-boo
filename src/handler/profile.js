@@ -14,7 +14,12 @@ class ProfileHandler {
   }
 
   init() {
-    this.router.get('/profile/:id', checkSchema(GetProfileByIDParamValidation), this.validate.bind(this), this.getById.bind(this));
+    this.router.get(
+      '/profile/:id',
+      checkSchema(GetProfileByIDParamValidation),
+      this.validate.bind(this),
+      this.getById.bind(this),
+    );
   }
 
   validate(req, res, next) {
@@ -26,10 +31,10 @@ class ProfileHandler {
   }
 
   async getById(req, res, next) {
-    try {        
+    try {
       const param = req.params.id;
       const profile = await this.profileUsecase.getById(param);
-      
+
       if (!profile) {
         return res.render('profile_not_found_template');
       }

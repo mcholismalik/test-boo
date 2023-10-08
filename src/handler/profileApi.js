@@ -15,7 +15,12 @@ class ProfileApiHandler {
   }
 
   init() {
-    this.router.post('/api/profile', checkSchema(CreateProfileBodyValidation), this.validate, this.create.bind(this));
+    this.router.post(
+      '/api/profile',
+      checkSchema(CreateProfileBodyValidation),
+      this.validate,
+      this.create.bind(this),
+    );
     this.router.get('/api/profile', this.get.bind(this));
   }
 
@@ -60,10 +65,10 @@ class ProfileApiHandler {
    *               $ref: '#/components/schemas/ResponseDto'
    */
   async create(req, res, next) {
-    try {        
+    try {
       const body = req.body;
       const data = await this.profileUsecase.create(body);
-      
+
       if (!data) {
         return ResponseUtil.unProcessableEntity(res, 'Failed create profile');
       }
@@ -106,7 +111,7 @@ class ProfileApiHandler {
   async get(req, res, next) {
     try {
       const profiles = await this.profileUsecase.get();
-      
+
       if (!profiles) {
         return ResponseUtil.notFound(res, 'No profiles found');
       }

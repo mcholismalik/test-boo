@@ -31,7 +31,7 @@ const GetCommentQueryDto = {
     sort: {
       type: 'string',
       enum: ['recent', 'best'],
-      example: 'best'
+      example: 'best',
     },
   },
 };
@@ -101,58 +101,54 @@ const UnlikeCommentBodyDto = {
 };
 
 const baseComment = {
-	properties: {
-		_id: {
-			type: 'string',
-		},
-		profileId: {
-			type: 'string',
-		},
-		title: {
-			type: 'string',
-		},
-		description: {
-			type: 'string',
-		},
-		mbti: {
-			type: 'string',
-		},
-		enneagram: {
-			type: 'string',
-		},
-		zodiac: {
-			type: 'string',
-		},
+  properties: {
+    _id: {
+      type: 'string',
+    },
+    profileId: {
+      type: 'string',
+    },
+    title: {
+      type: 'string',
+    },
+    description: {
+      type: 'string',
+    },
+    mbti: {
+      type: 'string',
+    },
+    enneagram: {
+      type: 'string',
+    },
+    zodiac: {
+      type: 'string',
+    },
     createdAt: {
-      type: 'string'
+      type: 'string',
     },
     createdBy: {
-			type: 'string',
-		}
-	}
+      type: 'string',
+    },
+  },
 };
 
-const CommentRespDto = BuildResponseDto(
-  {
-    type: 'object',
-    ...baseComment
-  }
-);
+const CommentRespDto = BuildResponseDto({
+  type: 'object',
+  ...baseComment,
+});
 
-const CommentsRespDto = BuildResponseDto(
-  {
-    type: 'array',
-    items: {
-      ...baseComment
-    }
-  }
-);
+const CommentsRespDto = BuildResponseDto({
+  type: 'array',
+  items: {
+    ...baseComment,
+  },
+});
 
-module.exports = { 
+module.exports = {
   GetCommentQueryDto,
   CreateCommentBodyDto,
   LikeCommentBodyDto,
   UnlikeCommentBodyDto,
   CommentRespDto,
-  CommentsRespDto
+  CommentsRespDto,
 };

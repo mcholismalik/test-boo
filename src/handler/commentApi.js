@@ -21,10 +21,29 @@ class CommentApiHandler {
   }
 
   init() {
-    this.router.post('/api/comment', checkSchema(CreateCommentBodyValidation), this.validate, this.create.bind(this));
-    this.router.get('/api/comment', checkSchema(GetCommentQueryValidation), this.get.bind(this));
-    this.router.patch('/api/comment/like', checkSchema(LikeCommentBodyValidation), this.validate, this.like.bind(this));
-    this.router.patch('/api/comment/unlike', checkSchema(UnlikeCommentBodyValidation), this.validate, this.unlike.bind(this));
+    this.router.post(
+      '/api/comment',
+      checkSchema(CreateCommentBodyValidation),
+      this.validate,
+      this.create.bind(this),
+    );
+    this.router.get(
+      '/api/comment',
+      checkSchema(GetCommentQueryValidation),
+      this.get.bind(this),
+    );
+    this.router.patch(
+      '/api/comment/like',
+      checkSchema(LikeCommentBodyValidation),
+      this.validate,
+      this.like.bind(this),
+    );
+    this.router.patch(
+      '/api/comment/unlike',
+      checkSchema(UnlikeCommentBodyValidation),
+      this.validate,
+      this.unlike.bind(this),
+    );
   }
 
   validate(req, res, next) {
@@ -79,7 +98,12 @@ class CommentApiHandler {
       const page = req.query.page || null;
       const limit = req.query.limit || null;
 
-      const comments = await this.commentUsecase.get(filterOptions, sortOption, page, limit);
+      const comments = await this.commentUsecase.get(
+        filterOptions,
+        sortOption,
+        page,
+        limit,
+      );
 
       ResponseUtil.ok(res, 'Success get comments', comments);
     } catch (err) {
@@ -171,7 +195,10 @@ class CommentApiHandler {
   async like(req, res, next) {
     try {
       const { commentId, profileId } = req.body;
-      const updatedComment = await this.commentUsecase.like(commentId, profileId);
+      const updatedComment = await this.commentUsecase.like(
+        commentId,
+        profileId,
+      );
 
       if (!updatedComment) {
         return ResponseUtil.unProcessableEntity(res, 'Failed like comment');
@@ -219,7 +246,10 @@ class CommentApiHandler {
   async unlike(req, res, next) {
     try {
       const { commentId, profileId } = req.body;
-      const updatedComment = await this.commentUsecase.unlike(commentId, profileId);
+      const updatedComment = await this.commentUsecase.unlike(
+        commentId,
+        profileId,
+      );
 
       if (!updatedComment) {
         return ResponseUtil.unProcessableEntity(res, 'Failed unlike comment');

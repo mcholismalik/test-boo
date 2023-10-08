@@ -20,7 +20,7 @@ describe('Profile Usecase', () => {
     const createdProfile = await usecase.create(mockProfileData);
 
     expect(mockProfileRepository.create).toHaveBeenCalledWith(mockProfileData);
-		expect(createdProfile).toEqual(mockProfileData);
+    expect(createdProfile).toEqual(mockProfileData);
   });
 
   it('should retrieve a profile by ID', async () => {
@@ -29,7 +29,7 @@ describe('Profile Usecase', () => {
     const retreivedProfile = await usecase.getById(profileId);
 
     expect(mockProfileRepository.getById).toHaveBeenCalledWith(profileId);
-		expect(retreivedProfile).toEqual(mockProfileData)
+    expect(retreivedProfile).toEqual(mockProfileData);
   });
 
   it('should retrieve profiles', async () => {
@@ -37,6 +37,6 @@ describe('Profile Usecase', () => {
     const retreivedProfiles = await usecase.get();
 
     expect(mockProfileRepository.get).toHaveBeenCalledWith();
-		expect(retreivedProfiles).toEqual([mockProfileData])
+    expect(retreivedProfiles).toEqual([mockProfileData]);
   });
 });

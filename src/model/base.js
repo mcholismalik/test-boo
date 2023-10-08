@@ -6,38 +6,38 @@ const COMMENT_SORT_BY_BEST = 'best';
 const COMMENT_SORT_BY_RECENT = 'recent';
 
 const PROFILE_DATA_MOCK = {
-	name: 'Malik',
-	description: 'Senior Software Engineer',
-	mbti: 'ENTJ',
-	enneagram: '1w2',
-	variant: 'Self-Preservation',
-	tritype: 135,
-	socionics: 'ILI (INTp)',
-	sloan: 'RCUE',
-	psyche: 'Ego',
-	image: IMAGE_DEFAULT,
+  name: 'Malik',
+  description: 'Senior Software Engineer',
+  mbti: 'ENTJ',
+  enneagram: '1w2',
+  variant: 'Self-Preservation',
+  tritype: 135,
+  socionics: 'ILI (INTp)',
+  sloan: 'RCUE',
+  psyche: 'Ego',
+  image: IMAGE_DEFAULT,
 };
 const PROFILE_DATA_MOCK_2 = {
-	name: 'Asha',
-	description: 'Swim Coach',
-	mbti: 'ESTP',
-	enneagram: '1w2',
-	variant: 'Self-Preservation',
-	tritype: 135,
-	socionics: 'ILI (INTp)',
-	sloan: 'RCUE',
-	psyche: 'Ego',
-	image: IMAGE_DEFAULT,
+  name: 'Asha',
+  description: 'Swim Coach',
+  mbti: 'ESTP',
+  enneagram: '1w2',
+  variant: 'Self-Preservation',
+  tritype: 135,
+  socionics: 'ILI (INTp)',
+  sloan: 'RCUE',
+  psyche: 'Ego',
+  image: IMAGE_DEFAULT,
 };
 const COMMENT_DATA_MOCK = {
-	profileId: 'your_profile_id',
-	title: 'Sample Comment',
-	description: 'This is a sample comment',
-	mbti: 'ENTJ',
-	enneagram: '1w2',
-	zodiac: 'Virgo',
-	likes: [],
-  createdBy: 'your_profile_id'
+  profileId: 'your_profile_id',
+  title: 'Sample Comment',
+  description: 'This is a sample comment',
+  mbti: 'ENTJ',
+  enneagram: '1w2',
+  zodiac: 'Virgo',
+  likes: [],
+  createdBy: 'your_profile_id',
 };
 
 const baseMeta = {
@@ -51,12 +51,12 @@ const baseMeta = {
     },
     timestamp: {
       type: 'string',
-      format: 'date-time'
+      format: 'date-time',
     },
     message: {
       type: 'string',
-    }
-  }
+    },
+  },
 };
 
 const ResponseDto = {
@@ -66,7 +66,7 @@ const ResponseDto = {
     data: {
       type: 'object',
     },
-  }
+  },
 };
 
 const BuildResponseDto = (child) => {
@@ -76,10 +76,10 @@ const BuildResponseDto = (child) => {
       meta: baseMeta,
       data: {
         type: 'object',
-        ...child
+        ...child,
       },
     },
-  }
+  };
 };
 
 module.exports = {

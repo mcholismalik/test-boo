@@ -1,15 +1,15 @@
 'use strict';
 
 const GetProfileByIDParamValidation = {
-	id: {
-		in: ['params'],
-		isHexadecimal: {
-			errorMessage: 'Invalid ID format',
-		},
-		isLength: {
-			options: { min: 24, max: 24 },
-		},
-	},
+  id: {
+    in: ['params'],
+    isHexadecimal: {
+      errorMessage: 'Invalid ID format',
+    },
+    isLength: {
+      options: { min: 24, max: 24 },
+    },
+  },
 };
 
 const CreateProfileBodyValidation = {
@@ -75,7 +75,7 @@ const CreateProfileBodyValidation = {
   },
 };
 
-module.exports = { 
-  GetProfileByIDParamValidation, 
-  CreateProfileBodyValidation
+module.exports = {
+  GetProfileByIDParamValidation,
+  CreateProfileBodyValidation,
 };

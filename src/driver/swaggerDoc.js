@@ -1,10 +1,8 @@
 'use strict';
 
 const swaggerJsdoc = require('swagger-jsdoc');
-const { 
-  ResponseDto
-} = require('../model/base');
-const { 
+const { ResponseDto } = require('../model/base');
+const {
   GetCommentQueryDto,
   CreateCommentBodyDto,
   LikeCommentBodyDto,
@@ -12,11 +10,11 @@ const {
   CommentRespDto,
   CommentsRespDto,
 } = require('../model/commentDto');
-const { 
+const {
   GetProfileByIDParamDto,
   CreateProfileBodyDto,
   ProfileRespDto,
-  ProfilesRespDto
+  ProfilesRespDto,
 } = require('../model/profileDto');
 
 const options = {
@@ -35,11 +33,11 @@ const options = {
     components: {
       schemas: {
         ResponseDto,
-        
+
         GetCommentQueryDto,
         CreateCommentBodyDto,
         LikeCommentBodyDto,
-        UnlikeCommentBodyDto, 
+        UnlikeCommentBodyDto,
         CommentRespDto,
         CommentsRespDto,
 
@@ -56,7 +54,7 @@ const options = {
           },
         },
       },
-    }
+    },
   },
   apis: ['./src/handler/*.js'],
 };

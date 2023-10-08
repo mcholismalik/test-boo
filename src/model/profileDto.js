@@ -1,10 +1,10 @@
 'use strict';
 
-const { BuildResponseDto, PROFILE_DATA_MOCK: mock } = require("./base");
+const { BuildResponseDto, PROFILE_DATA_MOCK: mock } = require('./base');
 
 const GetProfileByIDParamDto = {
   type: 'string',
-  pattern: '^[0-9a-fA-F]{24}$'
+  pattern: '^[0-9a-fA-F]{24}$',
 };
 
 const CreateProfileBodyDto = {
@@ -56,25 +56,24 @@ const CreateProfileBodyDto = {
   required: ['name', 'mbti'],
 };
 
-
 const baseProfile = {
-	properties: {
-		_id: {
-			type: 'string',
-		},
-		name: {
-			type: 'string',
-		},
-		description: {
-			type: 'string',
-		},
-		mbti: {
-			type: 'string',
-		},
-		enneagram: {
-			type: 'string',
-		},
-		variant: {
+  properties: {
+    _id: {
+      type: 'string',
+    },
+    name: {
+      type: 'string',
+    },
+    description: {
+      type: 'string',
+    },
+    mbti: {
+      type: 'string',
+    },
+    enneagram: {
+      type: 'string',
+    },
+    variant: {
       type: 'string',
     },
     tritype: {
@@ -91,29 +90,25 @@ const baseProfile = {
     },
     image: {
       type: 'string',
-    }
-	}
+    },
+  },
 };
 
-const ProfileRespDto = BuildResponseDto(
-  {
-    type: 'object',
-    ...baseProfile
-  }
-);
+const ProfileRespDto = BuildResponseDto({
+  type: 'object',
+  ...baseProfile,
+});
 
-const ProfilesRespDto = BuildResponseDto(
-  {
-    type: 'array',
-    items: {
-      ...baseProfile
-    }
-  }
-);
+const ProfilesRespDto = BuildResponseDto({
+  type: 'array',
+  items: {
+    ...baseProfile,
+  },
+});
 
-module.exports = { 
+module.exports = {
   GetProfileByIDParamDto,
   CreateProfileBodyDto,
   ProfileRespDto,
-  ProfilesRespDto
+  ProfilesRespDto,
 };

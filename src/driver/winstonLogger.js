@@ -11,11 +11,9 @@ class WinstonLogger {
         format.timestamp(),
         format.printf(({ timestamp, level, message }) => {
           return `${timestamp} ${level}: ${message}`;
-        })
+        }),
       ),
-      transports: [
-        new transports.Console()
-      ],
+      transports: [new transports.Console()],
     });
   }
 

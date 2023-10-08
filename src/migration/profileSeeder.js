@@ -20,7 +20,8 @@ class ProfileSeeder {
         name: faker.name.findName(),
         description: faker.lorem.sentence(),
         mbti: mbtiOptions[Math.floor(Math.random() * mbtiOptions.length)],
-        enneagram: enneagramOptions[Math.floor(Math.random() * enneagramOptions.length)],
+        enneagram:
+          enneagramOptions[Math.floor(Math.random() * enneagramOptions.length)],
         variant: faker.random.word(),
         tritype: faker.datatype.number(),
         socionics: faker.random.word(),
@@ -31,7 +32,7 @@ class ProfileSeeder {
 
       profiles.push(profile);
     }
-    
+
     return await this.profileDomain.creates(profiles);
   }
 }

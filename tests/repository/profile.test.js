@@ -25,19 +25,19 @@ describe('Profile Repository', () => {
   it('should create a new profile', async () => {
     const repository = new ProfileRepository();
     const createdProfile = await repository.create(mockProfileData);
-    
+
     expect(createdProfile._id).toBeDefined();
-		
-		const { _id, __v, createdAt, ...createdProfileObject } = createdProfile;
-		expect(createdProfileObject).toEqual(mockProfileData);
+
+    const { _id, __v, createdAt, ...createdProfileObject } = createdProfile;
+    expect(createdProfileObject).toEqual(mockProfileData);
   });
 
   it('should creates some profile', async () => {
     const repository = new ProfileRepository();
     const createdProfiles = await repository.creates([mockProfileData]);
-    
+
     expect(createdProfiles).toBeDefined();
-		expect(createdProfiles.length).toBeGreaterThan(0);
+    expect(createdProfiles.length).toBeGreaterThan(0);
   });
 
   it('should retrieve a profile by ID', async () => {
@@ -45,8 +45,8 @@ describe('Profile Repository', () => {
     const createdProfile = await repository.create(mockProfileData);
     const retrievedProfile = await repository.getById(createdProfile._id);
 
-		expect(retrievedProfile).toBeDefined();
-		
+    expect(retrievedProfile).toBeDefined();
+
     const { _id, __v, createdAt, ...retrievedProfileObject } = retrievedProfile;
     expect(retrievedProfileObject).toEqual(mockProfileData);
   });
@@ -56,15 +56,15 @@ describe('Profile Repository', () => {
     const mockId = '6522bc057abe8f908409ed2f';
     const retrievedProfile = await repository.getById(mockId);
 
-		expect(retrievedProfile).toBeNull();
-	});
+    expect(retrievedProfile).toBeNull();
+  });
 
   it('should retrieve profiles', async () => {
     const repository = new ProfileRepository();
     await repository.create(mockProfileData);
     const retrievedProfiles = await repository.get();
 
-		expect(retrievedProfiles).toBeDefined();
-		expect(retrievedProfiles.length).toBeGreaterThan(0);
+    expect(retrievedProfiles).toBeDefined();
+    expect(retrievedProfiles.length).toBeGreaterThan(0);
   });
 });

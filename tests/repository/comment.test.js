@@ -5,7 +5,13 @@
 const MongoDb = require('../../src/driver/mongoDb');
 const CommentRepository = require('../../src/repository/comment');
 const ProfileRepository = require('../../src/repository/profile');
-const { PROFILE_DATA_MOCK, PROFILE_DATA_MOCK2, COMMENT_DATA_MOCK, COMMENT_SORT_BY_BEST, COMMENT_SORT_BY_RECENT } = require('../../src/model/base');
+const {
+  PROFILE_DATA_MOCK,
+  PROFILE_DATA_MOCK2,
+  COMMENT_DATA_MOCK,
+  COMMENT_SORT_BY_BEST,
+  COMMENT_SORT_BY_RECENT,
+} = require('../../src/model/base');
 
 // dependencies
 const db = new MongoDb();
@@ -20,9 +26,9 @@ let createdProfileData, createdProfileData2;
 beforeAll(async () => {
   await db.init();
 
-	const profileRepository = new ProfileRepository();
-	createdProfileData = await profileRepository.create(mockProfileData);
-	createdProfileData2 = await profileRepository.create(mockProfileData2);
+  const profileRepository = new ProfileRepository();
+  createdProfileData = await profileRepository.create(mockProfileData);
+  createdProfileData2 = await profileRepository.create(mockProfileData2);
 });
 
 afterAll(async () => {
@@ -30,9 +36,9 @@ afterAll(async () => {
 });
 
 describe('Comment Repository', () => {
-  it('should create a new comment', async () => {    
+  it('should create a new comment', async () => {
     const commentRepository = new CommentRepository();
-		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.profileId = createdProfileData._id;
     mockCommentData.createdBy = createdProfileData2._id;
     const createdComment = await commentRepository.create(mockCommentData);
 
@@ -52,7 +58,12 @@ describe('Comment Repository', () => {
     const sortOption = COMMENT_SORT_BY_BEST;
     const page = 1;
     const limit = 10;
-    const comments = await repository.get(filterOptions, sortOption, page, limit);
+    const comments = await repository.get(
+      filterOptions,
+      sortOption,
+      page,
+      limit,
+    );
 
     expect(comments).toBeDefined();
   });
@@ -67,7 +78,12 @@ describe('Comment Repository', () => {
     const sortOption = COMMENT_SORT_BY_RECENT;
     const page = 1;
     const limit = 10;
-    const comments = await repository.get(filterOptions, sortOption, page, limit);
+    const comments = await repository.get(
+      filterOptions,
+      sortOption,
+      page,
+      limit,
+    );
 
     expect(comments).toBeDefined();
   });
@@ -87,7 +103,7 @@ describe('Comment Repository', () => {
 
   it('should like a comment', async () => {
     const repository = new CommentRepository();
-		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.profileId = createdProfileData._id;
     mockCommentData.createdBy = createdProfileData2._id;
     const createdComment = await repository.create(mockCommentData);
     const commentId = createdComment._id.toString();
@@ -111,7 +127,7 @@ describe('Comment Repository', () => {
 
   it('should unlike a comment', async () => {
     const repository = new CommentRepository();
-		mockCommentData.profileId = createdProfileData._id;
+    mockCommentData.profileId = createdProfileData._id;
     mockCommentData.createdBy = createdProfileData2._id;
     const createdComment = await repository.create(mockCommentData);
     const commentId = createdComment._id.toString();

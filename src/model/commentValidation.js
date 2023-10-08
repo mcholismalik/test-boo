@@ -58,9 +58,9 @@ const CreateCommentBodyValidation = {
     isString: true,
     isHexadecimal: true,
     notEmpty: true,
-		isLength: {
-			options: { min: 24, max: 24 },
-		},
+    isLength: {
+      options: { min: 24, max: 24 },
+    },
     errorMessage: 'Profile ID is required and should be ID format.',
   },
   title: {
@@ -98,9 +98,9 @@ const CreateCommentBodyValidation = {
     isString: true,
     isHexadecimal: true,
     notEmpty: true,
-		isLength: {
-			options: { min: 24, max: 24 },
-		},
+    isLength: {
+      options: { min: 24, max: 24 },
+    },
     errorMessage: 'Created By is required and should be ID format.',
   },
 };
@@ -135,9 +135,9 @@ const UnlikeCommentBodyValidation = {
   },
 };
 
-module.exports = { 
+module.exports = {
   GetCommentQueryValidation,
-  CreateCommentBodyValidation, 
-  LikeCommentBodyValidation, 
-  UnlikeCommentBodyValidation
+  CreateCommentBodyValidation,
+  LikeCommentBodyValidation,
+  UnlikeCommentBodyValidation,
 };

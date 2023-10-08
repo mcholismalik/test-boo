@@ -21,7 +21,7 @@ const db = new MongoDb();
 const profileRepository = new ProfileRepository();
 const profileUsecase = new ProfileUsecase(profileRepository);
 const profileApiHandler = new ProfileApiHandler(logger, profileUsecase);
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(profileApiHandler.router);
 
 // mock
@@ -43,7 +43,7 @@ describe('Profile API Handler', () => {
       .send(mockProfileData)
       .expect(201);
 
-    const {_id, __v, createdAt, ...dataObject } = response.body.data;
+    const { _id, __v, createdAt, ...dataObject } = response.body.data;
     expect(dataObject).toEqual(mockProfileData);
   });
 
@@ -60,10 +60,7 @@ describe('Profile API Handler', () => {
   });
 
   it('should get some profiles', async () => {
-    const response = await request(app)
-      .get('/api/profile')
-      .send()
-      .expect(200);
+    const response = await request(app).get('/api/profile').send().expect(200);
 
     const dataObject = response.body.data;
     expect(dataObject.length).toBeGreaterThan(0);

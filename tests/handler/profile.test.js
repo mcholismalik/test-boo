@@ -42,11 +42,12 @@ afterAll(async () => {
 describe('Profile API Handler', () => {
   it('should retrieve a profile by ID', async () => {
     const profileCreated = await profileRepository.create(mockProfileData);
-    const response = await chai.request(app)
-      .get(`/profile/${profileCreated._id}`)
+    const response = await chai
+      .request(app)
+      .get(`/profile/${profileCreated._id}`);
 
     expect(response).to.have.status(200);
     expect(response).to.have.header('content-type', 'text/html; charset=utf-8');
-    expect(response.text).to.include(mockProfileData.name); 
+    expect(response.text).to.include(mockProfileData.name);
   });
 });

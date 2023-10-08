@@ -18,8 +18,13 @@ class CommentUsecase {
   }
 
   async get(filterOptions, sortOption, page, limit) {
-    return await this.commentRepository.get(filterOptions, sortOption, page, limit);
-  }  
+    return await this.commentRepository.get(
+      filterOptions,
+      sortOption,
+      page,
+      limit,
+    );
+  }
 }
 
 module.exports = CommentUsecase;

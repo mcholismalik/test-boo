@@ -15,11 +15,11 @@ const ProfileEntity = new mongoose.Schema({
   psyche: String,
   image: String,
   createdAt: {
-		type: Date,
-		default: Date.now,
-	},
+    type: Date,
+    default: Date.now,
+  },
 });
 
-module.exports = { 
-  ProfileEntity
+module.exports = {
+  ProfileEntity,
 };
